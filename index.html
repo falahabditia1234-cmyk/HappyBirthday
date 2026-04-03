@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KeJutan Spesial 🔒</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 1. HALAMAN PIN -->
+    <section id="pinScreen" class="screen active">
+        <div class="container">
+            <h1>🔒 Masukkan PIN dulu ya</h1>
+            <p class="subtitle">Ketik PIN 8 digit untuk membuka kejutan</p>
+            <div class="pin-input">
+                <input type="password" id="pinInput" maxlength="8" placeholder="••••••••">
+                <button onclick="checkPin()">Bukaaa sayanggg 🎁</button>
+            </div>
+            <p id="pinError" class="error hidden">PIN salah 😒 ngga inget tanggal jadian😌</p>
+        </div>
+    </section>
+
+    <!-- 2. MINI GAME (Catch the Button) -->
+    <section id="gameScreen" class="screen hidden">
+        <div class="container">
+            <h2>Tangkap tombolnya! 😝</h2>
+            <p id="gameCounter">Klik 5x untuk lanjut → <span id="clickCount">0</span>/5</p>
+            <div class="game-area">
+                <button id="movingBtn" class="game-btn">💙</button>
+            </div>
+            <button class="btn-back" onclick="goToPin()">← Kembali</button>
+        </div>
+    </section>
+
+    <!-- 3. HALAMAN UCAPAN -->
+    <section id="birthdayScreen" class="screen hidden">
+        <div class="container">
+            <h1 class="Birthday-title">Happy Birthday sayanggg! 🎂</h1>
+            <div class="photo-container">
+                <img src="foto.jpg" alt="Foto Spesial">
+            </div>
+            <div class="message">
+                <p>Selamat ulang tahun ya sayanggg ❤️</p>
+                <p>Semoga panjang umur, sehat selalu, dan semua yang kamu harapkan bisa tercapai.</p>
+                <p>Semoga semua hal baik selalu datang ke kamu. Makasih ya udah jadi bagian penting di hidup aku 🤍</p>
+            </div>
+            <button class="btn-next" onclick="goToMemory()">Lihat Kenangan →</button>
+        </div>
+    </section>
+
+    <!-- 4. HALAMAN MEMORY GALLERY -->
+    <section id="memoryScreen" class="screen hidden">
+        <div class="container">
+            <h2>📸 Memory</h2>
+            <div class="gallery">
+                <!-- Slide 1 -->
+                <div class="slide active">
+                    <div class="photo-container">
+                        <img src="foto1.jpg" alt="Kenangan 1">
+                    </div>
+                    <p>"Hari pertama kita pergi bareng 😊"</p>
+                </div>
+                
+                <!-- Slide 2 -->
+                <div class="slide">
+                    <div class="photo-container">
+                        <img src="foto7.jpg" alt="Kenangan 2">
+                    </div>
+                    <p>"Momen paling bahagia 💕"</p>
+                </div>
+                
+                <!-- Slide 3 -->
+                <div class="slide">
+                    <div class="photo-container">
+                        <img src="foto3.jpg" alt="Kenangan 3">
+                    </div>
+                    <p>"satu hari sebelum jadian🤍"</p>
+                </div>
+                
+                <!-- Slide 4 -->
+                <div class="slide">
+                    <div class="photo-container">
+                        <img src="foto4.jpg" alt="Kenangan 4">
+                    </div>
+                    <p>"Selalu dihati ❤️"</p>
+                </div>
+                
+                                <!-- Slide 4 -->
+                <div class="slide">
+                    <div class="photo-container">
+                        <img src="foto5.jpg" alt="Kenangan 5">
+                    </div>
+                    <p>"Selalu dihati ❤️"</p>
+                </div>
+                
+                                <!-- Slide 4 -->
+                <div class="slide">
+                    <div class="photo-container">
+                        <img src="foto6.jpg" alt="Kenangan 6">
+                    </div>
+                    <p>"Selalu dihati ❤️"</p>
+                </div>
+                
+                               <!-- Slide 4 -->
+                <div class="slide">
+                    <div class="photo-container">
+                        <img src="foto2.jpg" alt="Kenangan 7">
+                    </div>
+                    <p>"Selalu dihati ❤️"</p>
+                </div> 
+                
+                                <!-- Slide 4 -->
+                <div class="slide">
+                    <div class="photo-container">
+                        <img src="foto8.jpg" alt="Kenangan 8">
+                    </div>
+                    <p>"Selalu dihati ❤️"</p>
+                </div>
+            </div>
+            <div class="gallery-nav">
+                <button onclick="prevSlide()">⬅️</button>
+                <span id="slideIndicator">1 / 4</span>
+                <button onclick="nextSlide()">➡️</button>
+            </div>
+            <button class="btn-back" onclick="goToBirthday()">← Kembali ke ucapan</button>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
