@@ -127,3 +127,159 @@ window.onload = () => {
     pinInput.focus();
     console.log('Website loaded! PIN:', CORRECT_PIN);
 };
+
+// 💕 HUJAN HATI - TAMBAH SEBELUM AKHIR
+let rainInterval;
+
+function startHeartRain() {
+    // Hapus hujan lama
+    if (rainInterval) clearInterval(rainInterval);
+    
+    rainInterval = setInterval(() => {
+        const heart = document.createElement('div');
+        heart.className = `heart ${['blue','cyan','light'][Math.floor(Math.random()*3)]}`;
+        heart.innerHTML = ['💙','💖','💕','💎'][Math.floor(Math.random()*4)];
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.animationDuration = (Math.random() * 2 + 4) + 's';
+        heart.style.fontSize = (Math.random() * 8 + 14) + 'px';
+        
+        document.getElementById('gameScreen').appendChild(heart);
+        setTimeout(() => heart.remove(), 8000);
+    }, 250); // Hati baru tiap 250ms
+}
+
+function stopHeartRain() {
+    if (rainInterval) {
+        clearInterval(rainInterval);
+        rainInterval = null;
+    }
+    // Hapus semua hati
+    document.querySelectorAll('.heart').forEach(h => h.remove());
+}
+
+// ← TAMBAH INI DI AKHIR SCRIPT
+
+class LoveRain {
+    constructor(canvasId) {
+        this.canvas = document.getElementById(canvasId);
+        this.ctx = this.canvas.getContext('2d');
+        this.drops = [];
+        this.init();
+    }
+
+    init() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+        window.addEventListener('resize', () => this.resize());
+        this.animate();
+    }
+
+    resize() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+    }
+
+    createDrop() {
+        return {
+            x: Math.random() * this.canvas.width,
+            y: -30,
+            vy: Math.random() * 3 + 2,
+            size: Math.random() * 5 + 3,
+            rotation: 0,
+            opacity: 1,
+            heart: ['💙','❄️','🐳','🐬','🔵','🩵','🌊'][Math.floor(Math.random()*7)]
+        };
+    }
+
+    animate() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        if (this.drops.length < 100) {
+            this.drops.push(this.createDrop());
+        }
+
+        this.drops.forEach((drop, i) => {
+            drop.y += drop.vy;
+            drop.rotation += 2;
+            drop.opacity -= 0.008;
+
+            // Glow effect
+            this.ctx.save();
+            this.ctx.globalAlpha = drop.opacity;
+            this.ctx.shadowColor = '#ff69b4';
+            this.ctx.shadowBlur = 12;
+            this.ctx.font = `${drop.size*2}px Arial`;
+            
+            this.ctx.save();
+            this.ctx.translate(drop.x, drop.y);
+            this.ctx.rotate(drop.rotation * Math.PI / 180);
+            this.ctx.fillText(drop.heart, 0, 0);
+            this.ctx.restore();
+            
+            this.ctx.restore();
+
+            if (drop.y > this.canvas.height || drop.opacity <= 0) {
+                this.drops.splice(i, 1);
+            }
+        });
+
+        requestAnimationFrame(() => this.animate());
+    }
+}
+
+// Start hujan love
+const loveRain = new LoveRain('loveRainCanvas');
+
+// ← TAMBAH INI DI SCRIPT.JS
+
+// Musik Happy Birthday
+const music = document.getElementById('birthdayMusic');
+const musicBtn = document.getElementById('musicToggle');
+
+let musicPlaying = false;
+
+// Auto play saat user interact pertama
+function initMusic() {
+    music.volume = 0.4; // Volume 40%
+    
+    musicBtn.addEventListener('click', toggleMusic);
+    
+    // User gesture untuk autoplay
+    document.addEventListener('click', function firstClick() {
+        if (!musicPlaying) {
+            playMusic();
+            document.removeEventListener('click', firstClick);
+        }
+    }, { once: true });
+}
+
+function playMusic() {
+    music.play().then(() => {
+        musicPlaying = true;
+        musicBtn.classList.add('playing');
+    }).catch(() => {
+        // Fallback jika autoplay diblokir
+    });
+}
+
+function toggleMusic() {
+    if (musicPlaying) {
+        music.pause();
+        musicBtn.classList.remove('playing');
+        musicPlaying = false;
+    } else {
+        playMusic();
+    }
+}
+
+// Panggil saat halaman load
+window.addEventListener('load', initMusic);
+
+// Restart musik saat game mulai
+function startGame() {
+    // ... kode game kamu ...
+    if (musicPlaying) {
+        music.currentTime = 0;
+        music.play();
+    }
+}
